@@ -26,6 +26,7 @@ if __name__ == '__main__':
     #                     mywriter.writerows(myreader)
 
     os.chdir('全国能源电力行业数据/全国联合专利/')
+    # os.chdir('csv')
     file_list = ['发电发电厂_全国联合专利.csv', '变压器变流器及其它电力变换器_全国联合专利.csv',
                  '地热能_全国联合专利.csv', '太阳能_全国联合专利.csv', '水能利用_水电站工程_全国联合专利.csv',
                  '电器_全国联合专利.csv', '电工基础理论_全国联合专利.csv', '电工材料_全国联合专利.csv',
@@ -34,8 +35,10 @@ if __name__ == '__main__':
                  '风能_全国联合专利.csv', '高电压技术_全国联合专利.csv'
                  ]
     with codecs.open('2011-2016全国能源电力联合专利.csv', 'ab', encoding='gb18030') as merge_file:
-        mywriter = csv.writer(merge_file)
+        my_writer = csv.writer(merge_file)
         for f in file_list:
+            if not os.path.exists(f):
+                continue
             with codecs.open(f, 'rb', encoding='gb18030') as cf:
-                myreader = csv.reader(cf)
-                mywriter.writerows(myreader)
+                my_reader = csv.reader(cf)
+                my_writer.writerows(my_reader)
