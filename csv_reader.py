@@ -30,7 +30,6 @@ class CsvReader:
     def __is_file_exits(self):
         return os.path.exists(self.file_name)
 
-    # noinspection PyChainedComparisons
     def applicant_list(self):
         my_list = []
         if not self.__is_file_exits():
@@ -48,14 +47,15 @@ class CsvReader:
         new_list = []
         if not old_list:
             return new_list
-        for each in old_list:
-            if str(each).find(';') != -1:
-                new_list.append(str(each).split(';'))
+        for oe in old_list:
+            if str(oe).find(';') != -1:
+                new_list.append(str(oe).split(';'))
         return new_list
 
 
 if __name__ == '__main__':
-    my_reader = CsvReader(u'D:/My Works/于东平2016国家自科/PatentSpider_2.7/已下载数据/能源电力.csv', '2016-01-01', '2016-12-31')
+    my_reader = CsvReader(u'D:/My Works/于东平2016国家自科/PatentSpider_2.7/已下载数据/能源电力.csv',
+                          '2016-01-01', '2016-12-31')
     result = my_reader.joint_applicant_list()
     for each in result:
         print ','.join(each)
