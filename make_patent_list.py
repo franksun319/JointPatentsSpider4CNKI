@@ -81,7 +81,10 @@ class PatentList:
         # 获取搜索结果网页的第一页，必要步骤，不可省略：因为要得到页数、条目数
         self.my_parser.feed(self.cnki.goto_page(self.start_page, True))
         # 如果搜索结果为空
-        if self.my_parser.item_count == '0':
+        if not str(self.my_parser.item_count).replace(',', '').isdigit():
+            self.log_error('Invalid character in item_count: ' + str(self.my_parser.item_count) + '.')
+            return sleep_counter
+        elif self.my_parser.item_count == '0':
             self.log_error('Empty result.')
             return sleep_counter
         # 如果结果列表多于6000条，cnki默认一次搜索最多返回6000条结果
@@ -125,3 +128,9 @@ class PatentList:
                         print self.msg_prefix + 'Page ' + str(i) + '/' + str(last_page) + \
                               ' parsed. Total item: ' + str(self.my_parser.item_count) + '.'
             return sleep_counter
+
+
+if __name__ == '__main__':
+    pl = PatentList('test.csv', patent_code='E064', start_time='2016-03-01', end_time='2016-03-31')
+    pl.make_list(1)
+    pass
