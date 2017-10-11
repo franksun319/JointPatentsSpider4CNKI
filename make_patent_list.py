@@ -37,7 +37,7 @@ class PatentList:
         self.msg_prefix = self.patent_code + ' [' + self.start_time + ',' + self.end_time + ']:: '
         self.start_page = 1
         self.cnki = CnkiSpider(patent_code=self.patent_code, start_time=self.start_time, end_time=self.end_time)
-        self.my_parser = PatentParser()
+        self.my_parser = PatentParser(self.patent_code)
 
     @staticmethod
     def _random_lower_bounded(num, lower):

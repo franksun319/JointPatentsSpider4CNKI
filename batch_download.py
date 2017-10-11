@@ -281,9 +281,9 @@ CODE_DICT = {
 if __name__ == '__main__':
     break_count = 1
     for each_code in CODE_DICT:
-        for each_interval in DATE_SPAN:
+        for each_span in DATE_SPAN:
             my_list = make_patent_list.PatentList(
-                outfile='csv/' + str(CODE_DICT[each_code]).decode('gb18030') + '_' + each_interval[0].replace('-', '') +
-                        '_' + each_interval[1].replace('-', '') + '.csv',
-                patent_code=each_code, start_time=each_interval[0], end_time=each_interval[1])
+                outfile='csv/' + str(CODE_DICT[each_code]).decode('gb18030') + '_' + each_span[0].replace('-', '') +
+                        '_' + each_span[1].replace('-', '') + '.csv',
+                patent_code=each_code, start_time=each_span[0], end_time=each_span[1])
             break_count = my_list.make_list(break_count)

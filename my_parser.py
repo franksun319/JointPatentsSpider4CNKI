@@ -12,12 +12,9 @@ sys.setdefaultencoding('utf8')
 
 
 class PatentParser(HTMLParser):
-    def __init__(self):
+    def __init__(self, append_info=''):
         HTMLParser.__init__(self)
         self.__insubtags = ['sub', 'sup']
-        self.__reset()
-
-    def __reset(self):
         # 关键标志flag取值：0无关标签，1专利号有关标签和专利名标签，2发明人标签，3申请人标签，4申请日期表亲啊，5公开日期标签
         self.__flag = 0
         self.__insubflag = False
@@ -29,6 +26,7 @@ class PatentParser(HTMLParser):
         self.__pagecountflg = False
         self.item_count = ''
         self.__itemflg = False
+        self.append_info = str(append_info)
 
     def handle_starttag(self, tag, attrs):
         tag = tag.strip()
@@ -96,9 +94,23 @@ class PatentParser(HTMLParser):
             # for each in self.__sequence:
             #     print each
             exit(-1)
-        for i in range(1, int(len(self.__sequence) / 6) + 1):
-            self.__result.append([self.__sequence[6 * i - 6], self.__sequence[6 * i - 5], self.__sequence[6 * i - 4],
-                                  self.__sequence[6 * i - 3], self.__sequence[6 * i - 2], self.__sequence[6 * i - 1]])
+        if self.append_info == '':
+            for i in range(1, int(len(self.__sequence) / 6) + 1):
+                self.__result.append(
+                    [
+                        self.__sequence[6 * i - 6], self.__sequence[6 * i - 5], self.__sequence[6 * i - 4],
+                        self.__sequence[6 * i - 3], self.__sequence[6 * i - 2], self.__sequence[6 * i - 1]
+                    ]
+                )
+        else:
+            for i in range(1, int(len(self.__sequence) / 6) + 1):
+                self.__result.append(
+                    [
+                        self.__sequence[6 * i - 6], self.__sequence[6 * i - 5], self.__sequence[6 * i - 4],
+                        self.__sequence[6 * i - 3], self.__sequence[6 * i - 2], self.__sequence[6 * i - 1],
+                        self.append_info
+                    ]
+                )
         self.__sequence = []
         return self.__result
 
@@ -109,8 +121,8 @@ class PatentParser(HTMLParser):
 
 
 if __name__ == '__main__':
-    myparser = PatentParser()
-    myparser.feed(CnkiSpider('C041', '2012-01-01', '2012-12-31').goto_page(3))
-    print len(myparser.get_result())
-    print myparser.page_count
-    print myparser.item_count
+    myparser = PatentParser('experiment')
+    myparser.feed(CnkiSpider('C041', '2012-01-01', '2012-12-31').goto_page(1))
+    result = myparser.get_result()
+    for line in result:
+        print line.decode('gbk')

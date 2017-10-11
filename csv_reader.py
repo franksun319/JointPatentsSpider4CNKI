@@ -54,8 +54,7 @@ class CsvReader:
 
 
 if __name__ == '__main__':
-    my_reader = CsvReader(u'D:/My Works/于东平2016国家自科/PatentSpider_2.7/已下载数据/能源电力.csv',
-                          '2016-01-01', '2016-12-31')
+    my_reader = CsvReader(u'已下载数据/能源电力.csv', '2016-01-01', '2016-12-31')
     result = my_reader.joint_applicant_list()
     for each in result:
         print ','.join(each)
