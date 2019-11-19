@@ -38,7 +38,7 @@ class PatentParser(HTMLParser):
                 elif name == 'href' and self.__flag == 1:
                     s = value.strip()
                     self.__sequence.append(s[s.find('filename=') + 9:])
-        # 关键标志flag取值：0无关标签，1专利号有关标签和专利名标签，2发明人标签，3申请人标签，4申请日期表亲啊，5公开日期标签
+        # 关键标志flag取值：0无关标签，1专利号有关标签和专利名标签，2发明人标签，3申请人标签，4申请日期标签，5公开日期标签
         elif tag == 'td':
             if self.__flag in range(1, 5):
                 self.__flag += 1

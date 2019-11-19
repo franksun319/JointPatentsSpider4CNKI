@@ -110,9 +110,10 @@ if __name__ == '__main__':
         '预防医学与卫生学_联合专利.csv',
     ]
 
-    DIR_STR = '2007-2016医药卫生行业数据/2007-2016全国医药卫生数据'
-
+    # 将原始csv数据合并，不能与merge_into_a_csv同时使用
+    DIR_STR = '2017-2019医药卫生行业数据/2017-2019全国医药卫生数据'
     # merge_by_category(DIR_STR, CATEGORY_LIST)
 
-    out_filename = '2007-2016全国医药卫生联合专利.csv'
-    # merge_into_a_csv(out_filename, DIR_STR, FILE_LIST)
+    # 将联合专利csv文件合并为一个整文件，不能与merge_by_category同时使用
+    out_filename = '2017-2019全国医药卫生联合专利.csv'
+    merge_into_a_csv(out_filename, '.', FILE_LIST)

@@ -20,6 +20,7 @@ class CnkiSpider:
     __TIME_OUT = 15
     __WAIT_TIME = 10
 
+    # 起始日期是指申请日期，而非公开日期
     def __init__(self, patent_code='*', start_time='2010-01-01', end_time=time.strftime('%Y-%m-%d')):
         self.__refresh()
         self.patent_code = patent_code

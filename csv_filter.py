@@ -24,7 +24,7 @@ if __name__ == '__main__':
         return True
 
 
-    DIR_STR = '2007-2016全国医药卫生科技'
+    DIR_STR = '.'
     FILE_LIST = [
         '中医学.csv', '中药学.csv', '中西医结合.csv', '临床医学.csv', '医药卫生方针政策与法律法规研究.csv',
         '口腔科学.csv', '呼吸系统疾病.csv', '基础医学.csv', '外科学.csv', '妇产科学.csv',
@@ -50,6 +50,7 @@ if __name__ == '__main__':
     os.chdir(DIR_STR)
     for f in FILE_LIST:
         if not os.path.exists(f):
+            print str(f) + ' doesn\'t exist!'
             continue
         print 'Filtering ' + f.decode('gbk') + ' ...'
         with codecs.open(f, 'rb', encoding='gb18030') as read_file:
@@ -61,8 +62,10 @@ if __name__ == '__main__':
                         my_writer.writerow(line)
                         # continue
     for f in os.listdir(os.getcwd()):
+        if os.path.isdir(f):
+            continue
         if os.path.getsize(f) == 0:
             try:
                 os.remove(f)
             except:
-                print 'Error!'
+                print f + ' :Error!'
